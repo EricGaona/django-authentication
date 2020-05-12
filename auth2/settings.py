@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    'django_forms_bootstrap',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -74,13 +75,14 @@ WSGI_APPLICATION = 'auth2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
+ DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -119,8 +121,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# la variable de arriba esta comentada xq es solo para la consola
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
